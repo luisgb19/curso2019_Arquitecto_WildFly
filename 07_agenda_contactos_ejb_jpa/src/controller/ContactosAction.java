@@ -20,7 +20,7 @@ public class ContactosAction extends HttpServlet {
 	DaoContactos miejb;
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		DaoContactos dao = new DaoContactos();
-		List<Contacto> contactos= miejb.mostrarContactos();
+		List<Contacto> contactos= miejb.recuperarContactos();
 		if(contactos.size()>0) {
 			request.setAttribute("resultado", 1);
 			//request.setAttribute("url", "contactos.jsp");

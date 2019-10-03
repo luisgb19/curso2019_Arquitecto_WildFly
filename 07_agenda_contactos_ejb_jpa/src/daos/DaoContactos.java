@@ -13,5 +13,9 @@ public interface DaoContactos {
 	List<Contacto> recuperarContactos();
 
 	void altaContacto(Contacto contacto);
+	
+	List<Contacto> recuperarContactosPorNombre(String n);
+	
+	Contacto recuperarContactoPorEmail(String email);
 
 }

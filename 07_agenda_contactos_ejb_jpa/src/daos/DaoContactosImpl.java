@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import model.Contacto;
 
@@ -28,14 +29,35 @@ public class DaoContactosImpl implements DaoContactos {
 
 	@Override
 	public List<Contacto> recuperarContactos() {
-		// TODO Auto-generated method stub
-		return null;
+		String jpql="Select c From Contacto c";
+		Query qr=em.createQuery(jpql);
+		return (List<Contacto>)qr.getResultList();
 	}
 
 	@Override
 	public void altaContacto(Contacto contacto) {
 		em.persist(contacto);
 		
+	}
+
+	@Override
+	public List<Contacto> recuperarContactosPorNombre(String n) {
+//		String jpql="Select c From Contacto c Where c.nombre like '%"+n+"%')";
+		String jpql="Select c From Contacto c Where c.nombre like ?1)";
+
+		//		String jpql="Select c From Contacto c Where contains(c.nombre,'"+n+"')";
+		Query qr=em.createQuery(jpql);
+		qr.setParameter(1, "%"+n+"%");
+		return (List<Contacto>)qr.getResultList();
+	}
+
+	@Override
+	public Contacto recuperarContactoPorEmail(String email) {
+		String jpql="Select c From Contacto c Where c.email='?1')";
+//		String jpql="Select c From Contacto c Where c.email='"+email+"')";
+		Query qr=em.createQuery(jpql);
+		qr.setParameter(1, email);
+		return (Contacto)qr.getSingleResult();
 	}
 
    
