@@ -29,6 +29,6 @@
 	</c:otherwise>
 </c:choose>
 <br/><br/>
-<a href="Controller?op=doTemas">Volver</a>
+<a href="Controller?op=doTemas">Otro tema</a>
 </body>
 </html>
