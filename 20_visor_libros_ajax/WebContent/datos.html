@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Datos cargados con JSON</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+function lanzarPeticion(){
+	var url="Controller?op=doLibros&idTema="+$("#idTema").val();
+	$.get(url, function(data,status){
+		// data es la respuesta
+		// status parametro de la jquery para saber si ha ido bien o hay algun error en el servidor
+		procesarRespuesta(data);
+	});
+}
+
+function procesarRespuesta(data){
+	var json=JSON.parse(data);
+	var tabla="<table border='1'><tr><th>Título</th><th>Autor</th><th>Precio</th></tr>";
+	for(var i=0;i<json.length;i++){
+		tabla+="<tr><td>"+json[i].titulo+"</td><td>"+json[i].autor+"</td><td>"+json[i].precio+"</td></tr>";
+	}
+	tabla+="</table>";
+	$("#tabla").html(tabla);
+}
+</script>
+</head>
+<body>
+
+<center>
+Tema: <input type="text" name="idTema" id="idTema"/>
+<br>
+ <br>
+ <input type="button" onclick="lanzarPeticion();" value="Cargar_1"/>
+<br>
+ <br>
+<div id="tabla">
+</div> 
+
+
+</center>
+</body>
+</html>
