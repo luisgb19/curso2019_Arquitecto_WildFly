@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+function lanzarPeticion(){
+	var url="Controller?op=doContactos";
+	$.get(url, function(data,status){
+		// data es la respuesta
+		// status parametro de la jquery para saber si ha ido bien o hay algun error en el servidor
+		procesarRespuesta(data);
+	});
+}
+
+function procesarRespuesta(data){
+	var json=JSON.parse(data);
+	var tabla="<table border='1'><tr><th>Nombre</th><th>Email</th><th>Edad</th><th></th></tr>";
+	for(var i=0;i<json.length;i++){
+		tabla+="<tr><td>"+json[i].nombre+"</td><td>"+json[i].email+"</td><td>"+json[i].edad+"</td><td><a href='#' onclick='eliminar("+json[i].idContacto+");'>Eliminar "+json[i].idContacto+"</a></td></tr>";
+	}
+
+	/* OTRA FORMA
+	$.each(json,function(index,e){
+		tabla+="<tr><td>"+e.nombre+"</td><td>"+e.email+"</td><td>"+e.edad+"</td>";
+		tabla+="<td><a href='#' onclick='eliminar("+e.idContacto+");'>Eliminar</a></td></tr>";
+	});
+	*/
+	tabla+="</table>";
+	$("#tabla").html(tabla);
+}
+
+function eliminar(id){
+	var url="Controller?op=doEliminar&idContacto="+id;
+	$.get(url,function(data.status){
+		procesarRespuesta(data);
+	});
+}
+</script>
+
+</head>
+<body>
+<a href="Controller?op=toDatos">Alta</a>
+<br/><br/>
+<a href="#" onclick="lanzarPeticion();">Mostrar</a>
+<br/><br/>
+<div id="tabla">
+</div>
+
+    <div class="col-sm-10">		
+		<a type="button" href='Controller?op=toEntrada' class="btn btn-default">Volver</a>
+	</div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>registro</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<script type="text/javascript">
+function validarCampos(){
+	return validarUsuario()&&validarEmail()&&validarTfno();
+} 
+	function validarUsuario(){
+		var usr = document.getElementById("usuario").value;
+		var pwd = document.getElementById("password").value;
+		if(usr==""||pwd==""){
+			alert("La contraseña y/o el usuario no pueden estar vacíos");
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
+	function validarEmail(){
+		var em = document.getElementById("email").value;
+		if(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3,4})+$/.test(em)){
+//		if(em.indexOf("@")==-1 ||em.indexOf(".")==-1){	
+	//http://lineadecodigo.com/javascript/validar-el-email-con-javascript/
+			alert("El email no está bien formado");
+			return false;
+		} else {
+			return true;	
+		}
+	}
+	
+	function validarTfno(){
+		var tfno = document.getElementById("telefono").value;
+	    if (/^([0-9])*$/.test(tfno)){
+	    	//if(!isNaN(telefono)){
+	    	return true;	
+		} else {
+			alert("El teléfono debe ser numérico");
+			return false;
+		}
+	}
+
+</script>
+
+</head>
+<body>
+
+<form action="Controller?op=doRegistro" onsubmit="return validarCampos();" method="post">
+	
+	Usuario:<input type="text" name="usuario"  id="usuario"/>
+	<br/>
+	Password:<input type="password" name="password" id="password"/>
+	<br/>
+	Email:<input type="text" name="email" id="email"/>
+	<br/>
+	Telefono:<input type="text" name="telefono" id="telefono"/>
+	<br/>
+	
+	<input type="submit" value="Grabar"/>
+	
+	
+</form>
+
+</body>
+</html>
